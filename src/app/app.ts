@@ -32,7 +32,7 @@ export type WeatherEvolutions = z.infer<typeof EvolutionsSchema>;
     styleUrl: './app.scss'
 })
 export class App {
-    private url = `http://localhost:8080?variables=101&period=day`;
+    private url = `http://localhost:8080?variables=101,201,541&period=day`;
 
     public weatherEvolutions = signal<WeatherEvolutions>(new Array());
 

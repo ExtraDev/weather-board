@@ -1,0 +1,14 @@
+:host {
+    .container {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        max-width: 1024px;
+        margin: auto;
+        padding-inline: 1rem;
+
+        app-graph {
+            flex: 1;
+        }
+    }
+}

@@ -1,12 +1,16 @@
-@if(weatherResource.isLoading()) {
-chargement en cours
-} @else if(weatherResource.error()) {
-Erreur de chargement
-} @else if (weatherResource.hasValue()) {
-@for(evolution of weatherResource.value(); track evolution.name) {
-<!-- {{evolution | json}} -->
-<app-graph [evolution]="evolution"></app-graph>
-}
-} @else {
-Erreur inconue
-}
+<div class="container">
+    <h1>Sonde: Maconnex</h1>
+
+    @if(weatherResource.isLoading()) {
+    chargement en cours
+    } @else if(weatherResource.error()) {
+    Erreur de chargement
+    } @else if (weatherResource.hasValue()) {
+    @for(evolution of weatherResource.value(); track evolution.name) {
+    <!-- {{evolution | json}} -->
+    <app-graph [evolution]="evolution"></app-graph>
+    }
+    } @else {
+    Erreur inconue
+    }
+</div>

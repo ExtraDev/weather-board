@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, input, ViewEncapsulation } from '@angular/core';
 import { EChartsCoreOption } from 'echarts';
 import { LineChart } from 'echarts/charts';
 import { DataZoomComponent, GridComponent, LegendComponent, TooltipComponent } from 'echarts/components';
@@ -17,10 +17,13 @@ echarts.use([
 ]);
 
 @Component({
-    imports: [NgxEchartsDirective],
+    imports: [
+        NgxEchartsDirective
+    ],
     selector: 'app-graph',
     styleUrl: './graph.component.scss',
     templateUrl: './graph.component.html',
+    encapsulation: ViewEncapsulation.None,
 })
 export class GraphComponent {
     public evolution = input<Evolution>();
@@ -28,10 +31,26 @@ export class GraphComponent {
     protected chart = computed(() => {
         const chart: EChartsCoreOption = {
             tooltip: {
-                trigger: 'axis'
+                trigger: 'axis',
+                triggerOn: 'mousemove|click',
+                formatter: (params: any) => {
+                    const items = Array.isArray(params) ? params : [params];
+                    const hour = items[0]?.axisValueLabel ?? '';
+
+                    return [
+                        `${hour} heure`,
+                        ...items.map(item => `${item.marker}${item.seriesName}: ${item.value}`)
+                    ].join('<br/>');
+                }
             },
             legend: {
                 top: 0
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
             },
             xAxis: {
                 type: 'category',
@@ -42,8 +61,22 @@ export class GraphComponent {
             },
             series: [
                 {
+                    name: 'min',
+                    data: this.evolution()?.measures.map(measure => measure.min),
+                    type: 'line',
+                    smooth: true,
+                },
+                {
+                    name: 'max',
                     data: this.evolution()?.measures.map(measure => measure.max),
                     type: 'line',
+                    smooth: true,
+                },
+                {
+                    name: 'moy,',
+                    data: this.evolution()?.measures.map(measure => ((measure.min + measure.max) / 2).toFixed(1)),
+                    type: 'line',
+                    smooth: true,
                 },
             ],
             dataZoom: [
