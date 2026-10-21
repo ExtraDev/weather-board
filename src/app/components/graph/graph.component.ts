@@ -54,7 +54,7 @@ export class GraphComponent {
             },
             xAxis: {
                 type: 'category',
-                data: this.evolution()?.measures.map(measure => new Date(measure.timestamp).getHours()),
+                data: this.evolution()?.measures.map(measure => new Date(measure.timestamp * 1000).getHours()),
             },
             yAxis: {
                 type: 'value',
