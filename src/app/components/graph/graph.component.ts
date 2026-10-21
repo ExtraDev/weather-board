@@ -54,7 +54,7 @@ export class GraphComponent {
             },
             xAxis: {
                 type: 'category',
-                data: this.evolution()?.measures.map(measure => measure.date.getHours()),
+                data: this.evolution()?.measures.map(measure => new Date(measure.timestamp).getHours()),
             },
             yAxis: {
                 type: 'value',
@@ -74,7 +74,7 @@ export class GraphComponent {
                 },
                 {
                     name: 'moy,',
-                    data: this.evolution()?.measures.map(measure => ((measure.min + measure.max) / 2).toFixed(1)),
+                    data: this.evolution()?.measures.map(measure => ((measure.min || 0 + (measure.max || 0)) / 2).toFixed(1)),
                     type: 'line',
                     smooth: true,
                 },
