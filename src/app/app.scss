@@ -7,8 +7,21 @@
         margin: auto;
         padding-inline: 1rem;
 
-        app-graph {
-            flex: 1;
+        .arrow {
+            img {
+                width: 100px;
+            }
+        }
+
+        .graphs {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+
+            app-graph {
+                flex: 1;
+                min-width: 400px;
+            }
         }
     }
 }

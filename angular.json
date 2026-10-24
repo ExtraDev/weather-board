@@ -32,7 +32,8 @@
                                 "glob": "mocks101day.json",
                                 "input": "src/app/services",
                                 "output": "services"
-                            }
+                            },
+                            "src/assets"
                         ],
                         "styles": [
                             "src/styles.scss"

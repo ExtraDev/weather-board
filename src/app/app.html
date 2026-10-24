@@ -1,16 +1,38 @@
 <div class="container">
-    <h1>Sonde: Maconnex</h1>
-
-    @if(weatherResource.isLoading()) {
+    @if(weatherInfos.isLoading()) {
     chargement en cours
-    } @else if(weatherResource.error()) {
+    } @else if(weatherInfos.error()) {
     Erreur de chargement
-    } @else if (weatherResource.hasValue()) {
-    @for(evolution of weatherResource.value(); track evolution.name) {
-    <!-- {{evolution | json}} -->
-    <app-graph [evolution]="evolution"></app-graph>
-    }
+    } @else if (weatherInfos.hasValue()) {
+    @let device = weatherInfos.value().device;
+    @let infos = weatherInfos.value().values;
+    <h1>Sonde: {{device.city}}</h1>
+    Température: {{infos.temp}} °c
+    Humidité: {{infos.hum}} %
+    Pluie: {{infos.rain}} mm
+    Pression: {{infos.bar}} hPa
+    Vitesse vent: {{infos.wspdavg}} Kkm/h
+    <div>
+        Vent direction: {{infos.wdiravg}}°
+        <div class="arrow">
+            <img [style.transform]="'rotate(' + infos.wdiravg + 'deg)'" src="./assets/fleches.png" alt="">
+        </div>
+    </div>
     } @else {
     Erreur inconue
     }
+
+    <div class="graphs">
+        @if(weatherResource.isLoading()) {
+        chargement en cours
+        } @else if(weatherResource.error()) {
+        Erreur de chargement
+        } @else if (weatherResource.hasValue()) {
+        @for(evolution of weatherResource.value(); track evolution.name) {
+        <app-graph [evolution]="evolution"></app-graph>
+        }
+        } @else {
+        Erreur inconue
+        }
+    </div>
 </div>

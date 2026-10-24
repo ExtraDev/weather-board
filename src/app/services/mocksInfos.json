@@ -1,0 +1,25 @@
+{
+    "device": {
+        "account": 0,
+        "status": "2",
+        "city": "Ornex",
+        "image": null,
+        "isWebcam": false,
+        "favorite": false,
+        "social": false,
+        "altitude": "480.0",
+        "update": 86
+    },
+    "values": {
+        "temp": "7.8",
+        "hum": "89",
+        "dew": "6.1",
+        "wspdavg": "1.7",
+        "wdiravg": "192",
+        "bar": "1019.5",
+        "rain": "5.6",
+        "rainrate": "0.0",
+        "solarrad": "82.6",
+        "uvi": "0.5"
+    }
+}
