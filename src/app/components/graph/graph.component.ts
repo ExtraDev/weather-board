@@ -1,6 +1,6 @@
 import { Component, computed, input, ViewEncapsulation } from '@angular/core';
 import { EChartsCoreOption } from 'echarts';
-import { LineChart } from 'echarts/charts';
+import { BarChart, LineChart } from 'echarts/charts';
 import { DataZoomComponent, GridComponent, LegendComponent, TooltipComponent } from 'echarts/components';
 import * as echarts from 'echarts/core';
 import { CanvasRenderer } from 'echarts/renderers';
@@ -13,6 +13,7 @@ echarts.use([
     TooltipComponent,
     DataZoomComponent,
     LineChart,
+    BarChart,
     CanvasRenderer
 ]);
 
@@ -29,6 +30,39 @@ export class GraphComponent {
     public evolution = input<Evolution>();
 
     protected chart = computed(() => {
+        let series: Array<unknown>;
+        if (this.evolution()?.name === 'rain_') {
+            series = [
+                {
+                    name: 'mm',
+                    data: this.evolution()?.measures.map(measure => measure.total),
+                    type: 'bar',
+                    smooth: true,
+                },
+            ]
+        } else {
+            series = [
+                {
+                    name: 'min',
+                    data: this.evolution()?.measures.map(measure => measure.min),
+                    type: 'line',
+                    smooth: true,
+                },
+                {
+                    name: 'max',
+                    data: this.evolution()?.measures.map(measure => measure.max),
+                    type: 'line',
+                    smooth: true,
+                },
+                {
+                    name: 'moy,',
+                    data: this.evolution()?.measures.map(measure => ((measure.min || 0 + (measure.max || 0)) / 2).toFixed(1)),
+                    type: 'line',
+                    smooth: true,
+                },
+            ]
+        }
+
         const chart: EChartsCoreOption = {
             tooltip: {
                 trigger: 'axis',
@@ -59,28 +93,9 @@ export class GraphComponent {
             yAxis: {
                 type: 'value',
             },
-            series: [
-                {
-                    name: 'min',
-                    data: this.evolution()?.measures.map(measure => measure.min),
-                    type: 'line',
-                    smooth: true,
-                },
-                {
-                    name: 'max',
-                    data: this.evolution()?.measures.map(measure => measure.max),
-                    type: 'line',
-                    smooth: true,
-                },
-                {
-                    name: 'moy,',
-                    data: this.evolution()?.measures.map(measure => ((measure.min || 0 + (measure.max || 0)) / 2).toFixed(1)),
-                    type: 'line',
-                    smooth: true,
-                },
-            ],
+            series: series,
             dataZoom: [
-                { type: 'inside' },
+                { type: 'inside', zoomOnMouseWheel: false },
                 { type: 'slider' }
             ]
         }

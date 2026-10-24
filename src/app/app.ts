@@ -1,4 +1,3 @@
-import { JsonPipe } from '@angular/common';
 import { httpResource } from '@angular/common/http';
 import { Component, signal } from '@angular/core';
 import z from 'zod';
@@ -28,19 +27,18 @@ export type WeatherEvolutions = z.infer<typeof EvolutionsSchema>;
 @Component({
     selector: 'app-root',
     imports: [
-        JsonPipe,
         GraphComponent
     ],
     templateUrl: './app.html',
     styleUrl: './app.scss'
 })
 export class App {
-    private url = `http://localhost:8080/weather/evolution?device=1635490010&variables=101,201,541,801&period=day`;
+    private url = `http://localhost:8080/weather/evolution?device=1635490010&variables=101,801,201,541&period=day`;
 
     public weatherEvolutions = signal<WeatherEvolutions>(new Array());
 
     protected readonly weatherResource = httpResource(
-        () => '/services/mocks101day.json',
+        () => this.url, //'/services/mocks101day.json'
         {
             parse: (raw) => {
                 const parsed = EvolutionsSchema.safeParse(raw);
