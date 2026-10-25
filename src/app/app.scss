@@ -8,9 +8,9 @@
         padding-inline: 1rem;
 
         .settings-btn {
-            position: absolute;
-            bottom: 1rem;
-            right: 1rem;
+            position: fixed;
+            top: 0.5rem;
+            right: 0.5rem;
             height: 35px;
 
             img {
@@ -49,7 +49,7 @@
 
             app-graph {
                 flex: 1;
-                min-width: 400px;
+                min-width: 300px;
             }
         }
     }

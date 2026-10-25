@@ -1,10 +1,11 @@
 import { httpResource } from '@angular/common/http';
 import { Service } from '@angular/core';
+import { environment } from '../../environments/environment';
 
 @Service()
 export class WeatherService {
     protected readonly weatherResource = httpResource(() => ({
-        url: 'http://localhost:8080?variables=101,201&period=day',
+        url: `${environment.apiURL}?variables=101,201&period=day`,
         method: 'GET'
     }));
 

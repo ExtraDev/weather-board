@@ -5,6 +5,7 @@ import {
     MatDialog
 } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { environment } from '../environments/environment';
 import { DeviceValues, DeviceValuesSchema } from './common/schemas/device.schema';
 import { Evolutions, EvolutionsSchema } from './common/schemas/evolution.schema';
 import { GraphComponent } from './components/graph/graph.component';
@@ -27,8 +28,8 @@ export class App {
 
     private dialog = inject(MatDialog);
 
-    private evolutionUrl = `http://localhost:8080/weather/evolution?device=1635490010&variables=101,801,201,541&period=day`;
-    private currentInfos = `http://localhost:8080/weather/infos?device=1635490010`;
+    private evolutionUrl = `${environment.apiURL}/weather/evolution?device=1635490010&variables=101,801,201,541&period=day`;
+    private currentInfos = `${environment.apiURL}/weather/infos?device=1635490010`;
 
     public constructor() {
         const intervalWeatherInfos = setInterval(this.reloadWeatherInfos, 1000 * 60 * 5);
@@ -68,7 +69,12 @@ export class App {
         });
 
     protected openSettings(): void {
-        const dialogRef = this.dialog.open(SettingsDialog);
+        const dialogRef = this.dialog.open(SettingsDialog, {
+            width: '95vw',
+            maxWidth: '644px',
+            // height: '95vh',
+            // data: task
+        });
     }
 
     private reloadWeatherInfos(): void {

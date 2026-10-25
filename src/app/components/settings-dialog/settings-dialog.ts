@@ -1,10 +1,21 @@
 import { Component, inject } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import {
-    MatDialogRef
+    MatDialogActions,
+    MatDialogClose,
+    MatDialogContent,
+    MatDialogRef,
+    MatDialogTitle
 } from '@angular/material/dialog';
 
 @Component({
-    imports: [],
+    imports: [
+        MatDialogTitle,
+        MatDialogContent,
+        MatDialogActions,
+        MatDialogClose,
+        MatButtonModule
+    ],
     selector: 'app-settings-dialog',
     styleUrl: './settings-dialog.scss',
     templateUrl: './settings-dialog.html',
