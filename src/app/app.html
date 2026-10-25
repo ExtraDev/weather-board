@@ -1,6 +1,4 @@
 <div class="container">
-    <!-- <button matButton="filled" (click)="weatherEvolutions.reload()">Rafraîchir</button> -->
-
     @if(weatherInfos.isLoading()) {
     <mat-spinner></mat-spinner>
     } @else if(weatherInfos.error()) {
@@ -21,7 +19,7 @@
         @if(device && infos) {
 
         <div class="infos">
-            <h1>Sonde: {{device.city}}</h1>
+            <h2>Sonde: {{device.city}}</h2>
             <div><span class="title">Température</span>: {{infos.temp}} °c</div>
             <div><span class="title">Humidité</span>: {{infos.hum}} %</div>
             <div><span class="title">Pluie</span>: {{infos.rain}} mm</div>
@@ -41,5 +39,9 @@
         @for(evolution of evolutionsValues(); track evolution.name) {
         <app-graph [evolution]="evolution"></app-graph>
         }
+    </div>
+
+    <div class="settings-btn" (click)="openSettings()">
+        <img src="./assets/settings.png" alt="">
     </div>
 </div>

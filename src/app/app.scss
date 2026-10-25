@@ -7,6 +7,17 @@
         margin: auto;
         padding-inline: 1rem;
 
+        .settings-btn {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            height: 35px;
+
+            img {
+                height: 100%;
+            }
+        }
+
         .device-values {
             display: flex;
             align-items: center;

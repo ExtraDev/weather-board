@@ -1,10 +1,14 @@
 import { httpResource } from '@angular/common/http';
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import {
+    MatDialog
+} from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DeviceValues, DeviceValuesSchema } from './common/schemas/device.schema';
 import { Evolutions, EvolutionsSchema } from './common/schemas/evolution.schema';
 import { GraphComponent } from './components/graph/graph.component';
+import { SettingsDialog } from './components/settings-dialog/settings-dialog';
 
 @Component({
     selector: 'app-root',
@@ -17,8 +21,11 @@ import { GraphComponent } from './components/graph/graph.component';
     styleUrl: './app.scss'
 })
 export class App {
+    protected deviceId = signal<number | undefined>(undefined);
     protected evolutionsValues = signal<Evolutions | undefined>(undefined);
     protected deviceValues = signal<DeviceValues | undefined>(undefined);
+
+    private dialog = inject(MatDialog);
 
     private evolutionUrl = `http://localhost:8080/weather/evolution?device=1635490010&variables=101,801,201,541&period=day`;
     private currentInfos = `http://localhost:8080/weather/infos?device=1635490010`;
@@ -59,6 +66,10 @@ export class App {
                 return parsed.data;
             }
         });
+
+    protected openSettings(): void {
+        const dialogRef = this.dialog.open(SettingsDialog);
+    }
 
     private reloadWeatherInfos(): void {
         this.weatherInfos.reload();
