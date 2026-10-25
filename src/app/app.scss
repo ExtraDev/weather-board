@@ -7,11 +7,29 @@
         margin: auto;
         padding-inline: 1rem;
 
-        .arrow {
-            img {
-                width: 100px;
+        .device-values {
+            display: flex;
+            align-items: center;
+
+            .infos {
+                flex: 1;
+
+                .title {
+                    font-weight: 500;
+                }
+
+                .arrow {
+                    width: fit-content;
+
+                    img {
+                        width: 100px;
+                        transition: transform 300ms ease;
+                    }
+                }
             }
+
         }
+
 
         .graphs {
             display: flex;

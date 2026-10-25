@@ -1,38 +1,45 @@
 <div class="container">
+    <!-- <button matButton="filled" (click)="weatherEvolutions.reload()">Rafraîchir</button> -->
+
     @if(weatherInfos.isLoading()) {
-    chargement en cours
+    <mat-spinner></mat-spinner>
     } @else if(weatherInfos.error()) {
     Erreur de chargement
-    } @else if (weatherInfos.hasValue()) {
-    @let device = weatherInfos.value().device;
-    @let infos = weatherInfos.value().values;
-    <h1>Sonde: {{device.city}}</h1>
-    Température: {{infos.temp}} °c
-    Humidité: {{infos.hum}} %
-    Pluie: {{infos.rain}} mm
-    Pression: {{infos.bar}} hPa
-    Vitesse vent: {{infos.wspdavg}} Kkm/h
-    <div>
-        Vent direction: {{infos.wdiravg}}°
-        <div class="arrow">
-            <img [style.transform]="'rotate(' + infos.wdiravg + 'deg)'" src="./assets/fleches.png" alt="">
-        </div>
-    </div>
-    } @else {
-    Erreur inconue
     }
 
-    <div class="graphs">
-        @if(weatherResource.isLoading()) {
-        chargement en cours
-        } @else if(weatherResource.error()) {
+    <div>
+        @if(weatherEvolutions.isLoading()) {
+        <mat-spinner></mat-spinner>
+        } @else if(weatherEvolutions.error()) {
         Erreur de chargement
-        } @else if (weatherResource.hasValue()) {
-        @for(evolution of weatherResource.value(); track evolution.name) {
-        <app-graph [evolution]="evolution"></app-graph>
         }
-        } @else {
-        Erreur inconue
+    </div>
+
+    <div class="device-values">
+        @let device = deviceValues()?.device;
+        @let infos = deviceValues()?.values;
+        @if(device && infos) {
+
+        <div class="infos">
+            <h1>Sonde: {{device.city}}</h1>
+            <div><span class="title">Température</span>: {{infos.temp}} °c</div>
+            <div><span class="title">Humidité</span>: {{infos.hum}} %</div>
+            <div><span class="title">Pluie</span>: {{infos.rain}} mm</div>
+            <div><span class="title">Pression</span>: {{infos.bar}} hPa</div>
+            <div><span class="title">Vitesse vent</span>: {{infos.wspdavg}} Kkm/h</div>
+            <div><span class="title">Direction vent</span>: {{infos.wdiravg}}°</div>
+        </div>
+        <div class="infos">
+            <div class="arrow">
+                <img [style.transform]="'rotate(' + infos.wdiravg + 'deg)'" src="./assets/fleches.png" alt="">
+            </div>
+        </div>
+        }
+    </div>
+
+    <div class="graphs">
+        @for(evolution of evolutionsValues(); track evolution.name) {
+        <app-graph [evolution]="evolution"></app-graph>
         }
     </div>
 </div>

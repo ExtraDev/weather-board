@@ -5,7 +5,7 @@ import { DataZoomComponent, GridComponent, LegendComponent, TooltipComponent } f
 import * as echarts from 'echarts/core';
 import { CanvasRenderer } from 'echarts/renderers';
 import { NgxEchartsDirective } from 'ngx-echarts';
-import { Evolution } from '../../app';
+import { Evolution } from '../../common/schemas/evolution.schema';
 
 echarts.use([
     GridComponent,
@@ -55,8 +55,8 @@ export class GraphComponent {
                     smooth: true,
                 },
                 {
-                    name: 'moy,',
-                    data: this.evolution()?.measures.map(measure => ((measure.min || 0 + (measure.max || 0)) / 2).toFixed(1)),
+                    name: 'moy.',
+                    data: this.evolution()?.measures.map(measure => (((measure.min || 0) + (measure.max || 0)) / 2).toFixed(1)),
                     type: 'line',
                     smooth: true,
                 },
