@@ -1,5 +1,28 @@
-<h2 mat-dialog-title>Dialog with elements</h2>
-<mat-dialog-content>This dialog showcases the title, close, content and actions elements.</mat-dialog-content>
+<h2 mat-dialog-title>Paramètre d'affichage</h2>
+<mat-dialog-content>
+    <form>
+        <h3>Sonde sélectionnée</h3>
+        <div class="device">
+            <mat-form-field class="example-full-width">
+                <mat-label>Id de la sonde</mat-label>
+                <input matInput [formField]="settingsForm.deviceId">
+            </mat-form-field>
+        </div>
+        @let metrics = data.metrics;
+        <div class="metrics">
+            <h3>Données à afficher</h3>
+            <section>
+                <mat-slide-toggle [formField]="settingsForm.metrics.temp">Température</mat-slide-toggle>
+                <mat-slide-toggle [formField]="settingsForm.metrics.hum">Humidité</mat-slide-toggle>
+                <mat-slide-toggle [formField]="settingsForm.metrics.hpa">Pression at</mat-slide-toggle>
+                <mat-slide-toggle [formField]="settingsForm.metrics.wind_speed">Vitesse du vent</mat-slide-toggle>
+                <mat-slide-toggle [formField]="settingsForm.metrics.rain_">Pluie</mat-slide-toggle>
+                <mat-slide-toggle [formField]="settingsForm.metrics.rain">Pluie</mat-slide-toggle>
+            </section>
+        </div>
+    </form>
+</mat-dialog-content>
 <mat-dialog-actions>
-    <button matButton mat-dialog-close>Close</button>
+    <button matButton mat-dialog-close (click)="onNoClick()">Annuler</button>
+    <button matButton mat-dialog-close (click)="dialogRef.close(returnData())">Appliquer</button>
 </mat-dialog-actions>

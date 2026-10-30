@@ -1,14 +1,12 @@
+@if(weatherEvolutionsResource.isLoading() || weatherInfosResource.isLoading()) {
+<mat-progress-bar mode="indeterminate"></mat-progress-bar>
+}
 <div class="container">
-    @if(weatherInfosResource.isLoading()) {
-    <mat-spinner></mat-spinner>
-    } @else if(weatherInfosResource.error()) {
-    Erreur de chargement
-    }
-
     <div>
-        @if(weatherEvolutionsResource.isLoading()) {
-        <mat-spinner></mat-spinner>
-        } @else if(weatherEvolutionsResource.error()) {
+        @if(weatherInfosResource.error()) {
+        Erreur de chargement
+        }
+        @if(weatherEvolutionsResource.error()) {
         Erreur de chargement
         }
     </div>
@@ -16,17 +14,22 @@
     @let device = deviceValues()?.device;
     @let infos = deviceValues()?.values;
     @if(device && infos) {
-    <h1> {{device.city}}</h1>
+    <h1>{{device.city}} - {{device.altitude}} m</h1>
     <div class="device-values">
         <div class="data">
             <div class="temp">{{infos.temp}} °c</div>
             <div>Humidité: {{infos.hum}} %</div>
             <div>Pluie: {{infos.rain}} mm</div>
+            <div>Intensité de pluie:{{infos.rainrate}} mm/h</div>
             <div>Pression: {{infos.bar}} hPa</div>
             <div>Vitesse vent: {{infos.wspdavg}} km/h</div>
+            <div>Rayonnement solaire: {{infos.solarrad}} w/m2</div>
+            <div>Indice UV: {{infos.uvi}}</div>
         </div>
         <div class="wind">
+            @if(infos.wdiravg && infos.wspdavg) {
             <app-wind-dial [direction]="+infos.wdiravg" [speed]="+infos.wspdavg"></app-wind-dial>
+            }
         </div>
     </div>
     }
