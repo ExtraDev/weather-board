@@ -1,39 +1,35 @@
 <div class="container">
-    @if(weatherInfos.isLoading()) {
+    @if(weatherInfosResource.isLoading()) {
     <mat-spinner></mat-spinner>
-    } @else if(weatherInfos.error()) {
+    } @else if(weatherInfosResource.error()) {
     Erreur de chargement
     }
 
     <div>
-        @if(weatherEvolutions.isLoading()) {
+        @if(weatherEvolutionsResource.isLoading()) {
         <mat-spinner></mat-spinner>
-        } @else if(weatherEvolutions.error()) {
+        } @else if(weatherEvolutionsResource.error()) {
         Erreur de chargement
         }
     </div>
 
+    @let device = deviceValues()?.device;
+    @let infos = deviceValues()?.values;
+    @if(device && infos) {
+    <h1> {{device.city}}</h1>
     <div class="device-values">
-        @let device = deviceValues()?.device;
-        @let infos = deviceValues()?.values;
-        @if(device && infos) {
-
-        <div class="infos">
-            <h2>Sonde: {{device.city}}</h2>
-            <div><span class="title">Température</span>: {{infos.temp}} °c</div>
-            <div><span class="title">Humidité</span>: {{infos.hum}} %</div>
-            <div><span class="title">Pluie</span>: {{infos.rain}} mm</div>
-            <div><span class="title">Pression</span>: {{infos.bar}} hPa</div>
-            <div><span class="title">Vitesse vent</span>: {{infos.wspdavg}} km/h</div>
-            <div><span class="title">Direction vent</span>: {{infos.wdiravg}}°</div>
+        <div class="data">
+            <div class="temp">{{infos.temp}} °c</div>
+            <div>Humidité: {{infos.hum}} %</div>
+            <div>Pluie: {{infos.rain}} mm</div>
+            <div>Pression: {{infos.bar}} hPa</div>
+            <div>Vitesse vent: {{infos.wspdavg}} km/h</div>
         </div>
-        <div class="infos">
-            <div class="arrow">
-                <img [style.transform]="'rotate(' + infos.wdiravg + 'deg)'" src="./assets/fleches.png" alt="">
-            </div>
+        <div class="wind">
+            <app-wind-dial [direction]="+infos.wdiravg" [speed]="+infos.wspdavg"></app-wind-dial>
         </div>
-        }
     </div>
+    }
 
     <div class="graphs">
         @for(evolution of evolutionsValues(); track evolution.name) {

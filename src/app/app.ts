@@ -10,13 +10,15 @@ import { DeviceValues, DeviceValuesSchema } from './common/schemas/device.schema
 import { Evolutions, EvolutionsSchema } from './common/schemas/evolution.schema';
 import { GraphComponent } from './components/graph/graph.component';
 import { SettingsDialog } from './components/settings-dialog/settings-dialog';
+import { WindDial } from './components/windial/windial';
 
 @Component({
     selector: 'app-root',
     imports: [
         MatProgressSpinnerModule,
         MatButtonModule,
-        GraphComponent
+        GraphComponent,
+        WindDial
     ],
     templateUrl: './app.html',
     styleUrl: './app.scss'
@@ -32,11 +34,15 @@ export class App {
     private currentInfos = `${environment.apiURL}/weather/infos?device=1635490010`;
 
     public constructor() {
-        const intervalWeatherInfos = setInterval(this.reloadWeatherInfos, 1000 * 60 * 5);
-        const intervalWeatherEvolutions = setInterval(this.reloadWeatherEvolutions, 1000 * 60 * 15);
+        setInterval(() => {
+            this.weatherInfosResource.reload();
+        }, 1000 * 60 * 5);
+        setInterval(() => {
+            this.weatherEvolutionsResource.reload();
+        }, 1000 * 60 * 15);
     }
 
-    protected readonly weatherInfos = httpResource(
+    protected readonly weatherInfosResource = httpResource(
         () => this.currentInfos, //'/services/mocks101day.json'
         {
             parse: (raw) => {
@@ -52,7 +58,7 @@ export class App {
             }
         });
 
-    protected readonly weatherEvolutions = httpResource(
+    protected readonly weatherEvolutionsResource = httpResource(
         () => this.evolutionUrl, //'/services/mocks101day.json'
         {
             parse: (raw) => {
@@ -75,13 +81,5 @@ export class App {
             // height: '95vh',
             // data: task
         });
-    }
-
-    private reloadWeatherInfos(): void {
-        this.weatherInfos.reload();
-    }
-
-    private reloadWeatherEvolutions(): void {
-        this.weatherInfos.reload();
     }
 }
