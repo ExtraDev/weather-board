@@ -61,15 +61,6 @@ export class SettingsDialog {
 
     protected settingsForm = form(this.settingsModel);
 
-    protected returnData(): SettingsDialogData {
-        const formData = this.settingsForm().value();
-
-        return {
-            metrics: formData.metrics,
-            deviceId: formData.deviceId,
-        }
-    }
-
     protected onNoClick(): void {
         this.dialogRef.close();
     }

@@ -23,5 +23,5 @@
 </mat-dialog-content>
 <mat-dialog-actions>
     <button matButton mat-dialog-close (click)="onNoClick()">Annuler</button>
-    <button matButton mat-dialog-close (click)="dialogRef.close(returnData())">Appliquer</button>
+    <button matButton [mat-dialog-close]="settingsModel()">Appliquer</button>
 </mat-dialog-actions>

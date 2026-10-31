@@ -110,7 +110,8 @@ export class App {
                 {
                     width: '95vw',
                     maxWidth: '644px',
-                    data: settingsDialogData
+                    data: settingsDialogData,
+                    autoFocus: 'dialog'
                 }
             ).afterClosed()
         );
