@@ -96,7 +96,7 @@ export class App {
                 rain_: settings.variables?.includes('801') || false,
                 rain: settings.variables?.includes('901') || false,
             },
-            deviceId: settings.deviceId || '4633478916'
+            deviceId: settings.deviceId || '7960255852'
         };
 
         if (!settingsDialogData) {
