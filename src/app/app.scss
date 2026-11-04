@@ -11,6 +11,18 @@
             margin: 0;
         }
 
+        .title {
+            display: flex;
+
+            h1 {
+                flex: 1;
+            }
+
+            .time {
+                margin-right: 40px
+            }
+        }
+
         .settings-btn {
             position: fixed;
             top: 0.5rem;

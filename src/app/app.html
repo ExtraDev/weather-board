@@ -14,7 +14,12 @@
     @let device = deviceValues()?.device;
     @let infos = deviceValues()?.values;
     @if(device && infos) {
-    <h1>{{device.city}} - {{device.altitude}} m</h1>
+    <div class="title">
+        <h1>{{device.city}} - {{device.altitude}} m</h1>
+        <div class="time">
+            Mise à jour: {{lastUpdate() | date:'H:mm' }}
+        </div>
+    </div>
     <div class="device-values">
         <div class="data">
             <div class="temp">{{infos.temp}} °c</div>

@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { httpResource } from '@angular/common/http';
 import { Component, inject, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -23,7 +24,8 @@ import { UrlService } from './services/url.service';
         MatProgressBarModule,
         MatButtonModule,
         GraphComponent,
-        WindDial
+        WindDial,
+        DatePipe
     ],
     templateUrl: './app.html',
     styleUrl: './app.scss'
@@ -31,6 +33,7 @@ import { UrlService } from './services/url.service';
 export class App {
     protected evolutionsValues = signal<Evolutions | undefined>(undefined);
     protected deviceValues = signal<DeviceValues | undefined>(undefined);
+    protected lastUpdate = signal<Date | undefined>(undefined);
 
     private dialog = inject(MatDialog);
     private urlService = inject(UrlService);
@@ -62,7 +65,7 @@ export class App {
                 }
 
                 const deviceValues = parsed.data;
-
+                this.lastUpdate.set(new Date());
                 this.deviceValues.set(deviceValues);
                 return deviceValues;
             }
