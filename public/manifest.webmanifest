@@ -1,0 +1,19 @@
+{
+    "name": "WeatherBoard",
+    "short_name": "Weather",
+    "start_url": "/",
+    "scope": "/",
+    "display": "standalone",
+    "icons": [
+        {
+            "src": "assets/station-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "assets/station.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
