@@ -99,7 +99,8 @@ export class App {
                 rain_: settings.variables?.includes('801') || false,
                 rain: settings.variables?.includes('901') || false,
             },
-            deviceId: settings.deviceId || '7960255852'
+            deviceId: settings.deviceId || '7960255852',
+            period: settings.period || 'day',
         };
 
         if (!settingsDialogData) {
@@ -142,7 +143,8 @@ export class App {
 
         this.settingsService.setSettings({
             deviceId: response.deviceId,
-            variables
+            variables,
+            period: response.period
         });
     }
 }

@@ -14,10 +14,12 @@ export class UrlService {
     public getEvolutionsUrl(): string | undefined {
         const deviceId = this.settingsService.getDeviceId() || '';
         const variables = this.settingsService.getVariables();
+        const perdiod = this.settingsService.getPeriod();
+
         if (!variables) {
             return undefined;
         }
 
-        return `${environment.apiURL}/weather/evolution?device=${deviceId}&variables=${variables}&period=day`;
+        return `${environment.apiURL}/weather/evolution?device=${deviceId}&variables=${variables}&period=${perdiod}`;
     }
 }

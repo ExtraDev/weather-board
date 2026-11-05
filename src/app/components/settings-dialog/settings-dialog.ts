@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormField, form } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import {
     MAT_DIALOG_DATA,
     MatDialogActions,
@@ -12,6 +13,8 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+
+export type Period = 'day' | 'week' | 'month';
 
 export interface Metrics {
     temp: boolean;
@@ -25,6 +28,7 @@ export interface Metrics {
 export interface SettingsDialogData {
     metrics: Metrics;
     deviceId: string;
+    period: Period;
 }
 
 @Component({
@@ -37,7 +41,8 @@ export interface SettingsDialogData {
         MatSlideToggleModule,
         MatInputModule,
         MatFormFieldModule,
-        FormField
+        FormField,
+        MatButtonToggleModule
     ],
     selector: 'app-settings-dialog',
     styleUrl: './settings-dialog.scss',
@@ -56,7 +61,8 @@ export class SettingsDialog {
             rain_: this.data.metrics.rain_,
             rain: this.data.metrics.rain,
         },
-        deviceId: this.data.deviceId
+        deviceId: this.data.deviceId,
+        period: this.data.period
     });
 
     protected settingsForm = form(this.settingsModel);

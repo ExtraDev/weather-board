@@ -8,6 +8,14 @@
                 <input matInput [formField]="settingsForm.deviceId">
             </mat-form-field>
         </div>
+        <div>
+            <h3>Période</h3>
+            <mat-button-toggle-group [formField]="settingsForm.period">
+                <mat-button-toggle value="day">Jour</mat-button-toggle>
+                <mat-button-toggle value="week">Semaine</mat-button-toggle>
+                <mat-button-toggle value="month">Mois</mat-button-toggle>
+            </mat-button-toggle-group>
+        </div>
         <div class="metrics">
             <h3>Données à afficher</h3>
             <section>
