@@ -41,7 +41,7 @@
 
     <div class="graphs">
         @for(evolution of evolutionsValues(); track evolution.name) {
-        <app-graph [evolution]="evolution"></app-graph>
+        <app-graph [evolution]="evolution" [period]="settingsService.getPeriod()"></app-graph>
         }
     </div>
 

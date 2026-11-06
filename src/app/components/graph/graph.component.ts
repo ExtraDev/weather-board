@@ -6,6 +6,7 @@ import * as echarts from 'echarts/core';
 import { CanvasRenderer } from 'echarts/renderers';
 import { NgxEchartsDirective } from 'ngx-echarts';
 import { Evolution } from '../../common/schemas/evolution.schema';
+import { Period } from '../settings-dialog/settings-dialog';
 
 echarts.use([
     GridComponent,
@@ -28,6 +29,7 @@ echarts.use([
 })
 export class GraphComponent {
     public evolution = input<Evolution>();
+    public period = input<Period>();
 
     protected chart = computed(() => {
         let series: Array<unknown>;
@@ -63,10 +65,13 @@ export class GraphComponent {
                 triggerOn: 'mousemove|click',
                 formatter: (params: any) => {
                     const items = Array.isArray(params) ? params : [params];
-                    const hour = items[0]?.axisValueLabel ?? '';
+                    const timeLabel = items[0]?.axisValueLabel ?? '';
+                    const title = this.period() === 'day'
+                        ? `À ${timeLabel}`
+                        : `Le ${timeLabel}`;
 
                     return [
-                        `${hour} heure`,
+                        title,
                         ...items.map(item => `${item.marker}${item.seriesName}: ${item.value}`)
                     ].join('<br/>');
                 }
@@ -82,7 +87,10 @@ export class GraphComponent {
             },
             xAxis: {
                 type: 'category',
-                data: this.evolution()?.measures.map(measure => new Date(measure.timestamp * 1000).getHours()),
+                data: this.evolution()?.measures.map(measure => this.formatTime(measure.timestamp)),
+                axisLabel: {
+                    rotate: 45
+                }
             },
             yAxis: {
                 type: 'value',
@@ -95,5 +103,20 @@ export class GraphComponent {
         }
 
         return chart;
-    })
+    });
+
+    private formatTime(timestamp: number): string {
+        let formatted = '';
+        const timestampDate = new Date(timestamp * 1000);
+
+        if (this.period() === 'day') {
+            formatted += timestampDate.getHours() + 'h';
+        } else if (this.period() === 'week') {
+            formatted += timestampDate.getDate() + '.' + (timestampDate.getMonth() + 1);
+        } else if (this.period() === 'month') {
+            formatted += timestampDate.getDate() + '.' + (timestampDate.getMonth() + 1) + '.' + timestampDate.getFullYear();
+        }
+
+        return formatted;
+    }
 }

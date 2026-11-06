@@ -35,9 +35,10 @@ export class App {
     protected deviceValues = signal<DeviceValues | undefined>(undefined);
     protected lastUpdate = signal<Date | undefined>(undefined);
 
+    protected settingsService = inject(SettingsService);
+
     private dialog = inject(MatDialog);
     private urlService = inject(UrlService);
-    private settingsService = inject(SettingsService);
 
     private _snackBar = inject(MatSnackBar);
 
