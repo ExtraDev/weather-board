@@ -23,13 +23,13 @@
     <div class="device-values">
         <div class="data">
             <div class="temp">{{infos.temp}} °c</div>
-            <div>Humidité: {{infos.hum}} %</div>
-            <div>Pluie: {{infos.rain}} mm</div>
-            <div>Intensité de pluie:{{infos.rainrate}} mm/h</div>
-            <div>Pression: {{infos.bar}} hPa</div>
-            <div>Vitesse vent: {{infos.wspdavg}} km/h</div>
-            <div>Rayonnement solaire: {{infos.solarrad}} w/m2</div>
-            <div>Indice UV: {{infos.uvi}}</div>
+            <div>Humidité: <span class="value">{{ infos.hum }} %</span></div>
+            <div>Pluie: <span class="value">{{ infos.rain }} mm</span></div>
+            <div>Intensité de pluie: <span class="value">{{ infos.rainrate }} mm/h</span></div>
+            <div>Pression: <span class="value">{{ infos.bar }} hPa</span></div>
+            <div>Vitesse vent: <span class="value">{{ infos.wspdavg }} km/h</span></div>
+            <div>Rayonnement solaire: <span class="value">{{ infos.solarrad }} w/m2</span></div>
+            <div>Indice UV: <span class="value">{{ infos.uvi }}</span></div>
         </div>
         <div class="wind">
             @if(infos.wdiravg && infos.wspdavg) {

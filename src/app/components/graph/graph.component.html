@@ -1,4 +1,4 @@
 <div class="title">
-    {{evolution()?.name}}
+    {{ translateTitle(evolution()?.name || '' )}}
 </div>
 <div echarts [options]="chart()" class="chart"></div>

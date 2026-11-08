@@ -33,6 +33,7 @@ export class GraphComponent {
 
     protected chart = computed(() => {
         let series: Array<unknown>;
+
         if (this.evolution()?.name === 'rain_') {
             series = [
                 {
@@ -40,19 +41,18 @@ export class GraphComponent {
                     data: this.evolution()?.measures.map(measure => measure.total),
                     type: 'bar',
                     smooth: true,
-                },
+                }
             ]
         } else {
             series = [
                 {
-                    name: 'min',
-                    data: this.evolution()?.measures.map(measure => measure.min),
-                    type: 'line',
-                    smooth: true,
-                },
-                {
                     name: 'max',
                     data: this.evolution()?.measures.map(measure => measure.max),
+                    type: 'line',
+                    smooth: true,
+                }, {
+                    name: 'min',
+                    data: this.evolution()?.measures.map(measure => measure.min),
                     type: 'line',
                     smooth: true,
                 }
@@ -104,6 +104,26 @@ export class GraphComponent {
 
         return chart;
     });
+
+    protected translateTitle(title: string): string {
+        let translation = '';
+
+        if (title === 'temperature') {
+            translation = 'Température';
+        } else if (title === 'humidity') {
+            translation = 'Humidité';
+        } else if (title === 'hPa') {
+            translation = 'Pression atmosphérique';
+        } else if (title === 'wind_speed') {
+            translation = 'Vitesse du vent';
+        } else if (title === 'rain_') {
+            translation = 'Pluie';
+        } else {
+            translation = title;
+        }
+
+        return translation;
+    }
 
     private formatTime(timestamp: number): string {
         let formatted = '';
